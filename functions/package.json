@@ -1,0 +1,21 @@
+{
+  "name": "functions",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -w",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc -b --pretty"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.0.0-rc.782",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.5.0"
+  }
+}
+

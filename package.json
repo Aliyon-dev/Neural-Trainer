@@ -1,0 +1,30 @@
+{
+  "name": "my-benefit-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "functions"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --filter=web",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write .",
+    "setup": "echo 'Setup complete'"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-perfectionist": "^2.11.0",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "prettier": "^3.2.5",
+    "typescript": "^5.5.0",
+    "turbo": "^2.0.6"
+  }
+}
+
