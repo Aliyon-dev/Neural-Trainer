@@ -22,6 +22,7 @@ export const moodSchema = z.object({
   emoji: z.string(),
   intensity: z.number().int().min(1).max(5),
   timestamp: z.string(),
+  notes: z.string().optional(),
 });
 
 export const motivationSchema = z.object({

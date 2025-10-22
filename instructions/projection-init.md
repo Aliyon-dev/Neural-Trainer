@@ -1,7 +1,7 @@
-# Project Initiation — My Benefit (Fitness Tracker App)
+# Project Initiation — My Neural Trainer (Fitness Tracker App)
 
 ## 1. Project Overview
-**Project name:** My Benefit  
+**Project name:** My Neural Trainer  
 **Type:** Fitness Tracking Web App  
 **Initiated by:** Aliyon Tembo  
 **Date:** 2025-10-20  

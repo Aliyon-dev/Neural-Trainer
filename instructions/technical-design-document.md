@@ -1,11 +1,11 @@
-# Technical Design Document — My Benefit (Fitness Tracker App)
+# Technical Design Document — My Neural Trainer (Fitness Tracker App)
 
 _Last updated: 2025-10-20_  
 _Author: Aliyon Tembo_
 
 ---
 
-## MY BENEFIT — One-Sentence Pitch
+## MY Neural Trainer — One-Sentence Pitch
 A mood-aware fitness tracker that connects your workouts with your emotions — featuring a **Motivation Spin Cursor** that spins to deliver quick motivational boosts.
 
 ---
@@ -150,7 +150,7 @@ Randomized messages fetched from Firestore collection (`motivations`).
 | ---- | ------------- | ------ |
 | **local** | `localhost:5173` | Firebase emulators + `.env` validated by T3 Env |
 | **preview-\*** | Firebase Hosting channel | Auto-created per PR |
-| **prod** | `https://app.mybenefit.fit` | Promote via CI workflow |
+| **prod** | `https://app.myNeural Trainer.fit` | Promote via CI workflow |
 
 Secrets managed via `firebase functions:config:set` and GitHub Actions secrets.
 
@@ -206,7 +206,7 @@ Secrets managed via `firebase functions:config:set` and GitHub Actions secrets.
 - **Branching model:** Conventional commits + Changesets for versioning.  
 - **Links:** Product spec, Figma, Storybook URL, ADR index.  
 - **Figma link:** _pending_  
-- **Storybook URL:** `https://storybook.mybenefit.fit`
+- **Storybook URL:** `https://storybook.myNeural Trainer.fit`
 
 ---
 

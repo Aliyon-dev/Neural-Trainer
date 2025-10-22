@@ -22,18 +22,18 @@ export function Header() {
         >
           <span className="text-white font-bold text-lg">NL</span>
         </motion.div>
-        <h1 className="text-3xl font-bold text-white">
+        <h1 className="text-3xl font-bold font-pacifico text-white">
           Neural Trainer
         </h1>
       </motion.div>
       <nav className="flex gap-3">
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button variant="ghost" asChild className="text-gray-300 hover:text-white hover:bg-red-900/50 backdrop-blur-sm">
+          <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-red-900/50 backdrop-blur-sm">
             <Link to="/login">LOGIN</Link>
           </Button>
         </motion.div>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button asChild className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-800 border-0 backdrop-blur-sm">
+          <Button className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-800 border-0 backdrop-blur-sm">
             <Link to="/signup">
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full"

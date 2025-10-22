@@ -61,7 +61,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.8 }}
       >
-        POWERED BY MY BENEFIT
+        POWERED BY MY Neural Trainer
       </motion.div>
 
       <motion.div

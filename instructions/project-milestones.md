@@ -1,4 +1,4 @@
-# Project Milestones — My Benefit MVP (1-Week Sprint)
+# Project Milestones — My Neural Trainer MVP (1-Week Sprint)
 
 **Start:** 2025-10-20  
 **End:** 2025-10-27  

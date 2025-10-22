@@ -180,6 +180,58 @@ pnpm typecheck              # Type check all packages
 - **TypeScript** - Strict type checking enabled
 - **Component Structure** - Organized, reusable components
 
+## 🚀 Deployment
+
+### Firebase Hosting Setup
+
+#### 1. Install Firebase CLI
+
+```bash
+npm install -g firebase-tools
+firebase login
+```
+
+#### 2. Configure Firebase Project
+
+1. Go to the [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project or select an existing one
+3. Enable Firebase Hosting in your project
+4. Copy your project ID from the Firebase Console
+5. Replace `your-firebase-project-id` in `.firebaserc` with your actual project ID
+
+#### 3. Deploy to Firebase Hosting
+
+```bash
+# Build and deploy to production
+pnpm run deploy:web
+
+# Deploy to a preview channel for testing
+pnpm run firebase:preview
+```
+
+#### 4. Environment Variables
+
+Make sure to set up your environment variables in your hosting platform:
+
+- `VITE_FIREBASE_API_KEY`
+- `VITE_FIREBASE_AUTH_DOMAIN`
+- `VITE_FIREBASE_PROJECT_ID`
+- `VITE_FIREBASE_STORAGE_BUCKET`
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_FIREBASE_APP_ID`
+
+### Manual Deployment
+
+If you prefer manual deployment:
+
+```bash
+# Build the project
+pnpm run build
+
+# Deploy to Firebase
+firebase deploy --only hosting
+```
+
 ## 🔮 Future Features
 
 ### Planned Development

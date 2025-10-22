@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import { WorkoutModal } from '../components/WorkoutModal';
+import { MoodModal } from '../components/MoodModal';
+import { WorkoutList } from '../components/WorkoutList';
+import { MoodHistory } from '../components/MoodHistory';
+import { InsightsPanel } from '../components/InsightsPanel';
+import { useWorkouts } from '../hooks/useWorkouts';
+import { useMoods } from '../hooks/useMoods';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,14 +28,31 @@ const itemVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.6,
-      ease: "easeOut"
+      duration: 0.6
     }
   }
 };
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
+  const { stats: workoutStats, loading: workoutLoading } = useWorkouts(user?.uid || '');
+  const { stats: moodStats, loading: moodLoading } = useMoods(user?.uid || '');
+  
+  const [workoutModalOpen, setWorkoutModalOpen] = useState(false);
+  const [moodModalOpen, setMoodModalOpen] = useState(false);
+
+  // Show loading state while data is being fetched
+  if (workoutLoading || moodLoading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <motion.div
+          className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+      </div>
+    );
+  }
 
   const handleLogout = async () => {
     await logout();
@@ -73,15 +97,15 @@ export default function Dashboard() {
 
         {/* Main Content */}
         <motion.div 
-          className="flex-1 flex items-center justify-center p-6"
+          className="flex-1 p-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <div className="w-full max-w-4xl">
+          <div className="w-full max-w-6xl mx-auto">
             {/* Welcome Section */}
             <motion.div 
-              className="text-center mb-12"
+              className="text-center mb-8"
               variants={itemVariants}
             >
               <h2 className="text-4xl md:text-6xl font-bold font-pacifico text-white mb-4">
@@ -96,7 +120,7 @@ export default function Dashboard() {
             </motion.div>
 
             {/* Feature Cards */}
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
               {/* Workouts Card */}
               <motion.div variants={itemVariants}>
                 <Card className="bg-black/40 border-red-500/30 backdrop-blur-sm">
@@ -114,14 +138,14 @@ export default function Dashboard() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-300 font-manrope">This Week</span>
                         <Badge variant="secondary" className="bg-red-600/20 text-red-300">
-                          0 sessions
+                          {workoutStats?.weekly || 0} sessions
                         </Badge>
                       </div>
                       <Button 
+                        onClick={() => setWorkoutModalOpen(true)}
                         className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope"
-                        disabled
                       >
-                        Coming Soon
+                        Log Workout
                       </Button>
                     </div>
                   </CardContent>
@@ -145,14 +169,14 @@ export default function Dashboard() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-300 font-manrope">This Week</span>
                         <Badge variant="secondary" className="bg-red-600/20 text-red-300">
-                          0 entries
+                          {moodStats?.weekly || 0} entries
                         </Badge>
                       </div>
                       <Button 
+                        onClick={() => setMoodModalOpen(true)}
                         className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope"
-                        disabled
                       >
-                        Coming Soon
+                        Log Mood
                       </Button>
                     </div>
                   </CardContent>
@@ -176,20 +200,71 @@ export default function Dashboard() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-300 font-manrope">Progress</span>
                         <Badge variant="secondary" className="bg-red-600/20 text-red-300">
-                          No data yet
+                          {(workoutStats?.weekly || 0) + (moodStats?.weekly || 0)} entries
                         </Badge>
                       </div>
                       <Button 
                         className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope"
                         disabled
                       >
-                        Coming Soon
+                        View Analytics
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
               </motion.div>
             </div>
+
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Left Column - Workouts */}
+              <motion.div variants={itemVariants}>
+                <Card className="bg-black/40 border-red-500/30 backdrop-blur-sm h-fit">
+                  <CardHeader>
+                    <CardTitle className="text-white font-manrope flex items-center">
+                      <span className="text-2xl mr-3">💪</span>
+                      Recent Workouts
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <WorkoutList />
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Right Column - Moods */}
+              <motion.div variants={itemVariants}>
+                <Card className="bg-black/40 border-red-500/30 backdrop-blur-sm h-fit">
+                  <CardHeader>
+                    <CardTitle className="text-white font-manrope flex items-center">
+                      <span className="text-2xl mr-3">😊</span>
+                      Mood History
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <MoodHistory />
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+
+            {/* Insights Panel */}
+            <motion.div 
+              className="mt-8"
+              variants={itemVariants}
+            >
+              <Card className="bg-black/40 border-red-500/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-white font-manrope flex items-center">
+                    <span className="text-2xl mr-3">📊</span>
+                    Your Progress & Insights
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <InsightsPanel />
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Motivation Quote */}
             <motion.div 
@@ -205,6 +280,16 @@ export default function Dashboard() {
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Modals */}
+        <WorkoutModal 
+          open={workoutModalOpen} 
+          onOpenChange={setWorkoutModalOpen} 
+        />
+        <MoodModal 
+          open={moodModalOpen} 
+          onOpenChange={setMoodModalOpen} 
+        />
       </div>
     </div>
   );

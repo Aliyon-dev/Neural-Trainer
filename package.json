@@ -1,5 +1,5 @@
 {
-  "name": "my-benefit-monorepo",
+  "name": "neural-trainer-monorepo",
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@9.0.0",
@@ -14,7 +14,9 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
-    "setup": "echo 'Setup complete'"
+    "setup": "echo 'Setup complete'",
+    "deploy:web": "turbo run build --filter=web && firebase deploy --only hosting",
+    "firebase:preview": "turbo run build --filter=web && firebase hosting:channel:deploy preview"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
@@ -22,9 +24,9 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-perfectionist": "^2.11.0",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "firebase-tools": "^14.20.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.5.0",
-    "turbo": "^2.0.6"
+    "turbo": "^2.0.6",
+    "typescript": "^5.5.0"
   }
 }
-
