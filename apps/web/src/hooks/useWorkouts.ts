@@ -1,16 +1,21 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Workout } from '@neural-trainer/shared';
-import { saveWorkout, getWorkouts, deleteWorkout, getWeeklyWorkouts, getTodayWorkouts } from '../lib/storage';
+import { addWorkout, getWorkouts, deleteWorkout, subscribeToWorkouts } from '../lib/firestore';
 
 export const useWorkouts = (userId: string) => {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load workouts from localStorage
-  const loadWorkouts = useCallback(() => {
+  // Load workouts from Firestore
+  const loadWorkouts = useCallback(async () => {
     try {
-      const userWorkouts = getWorkouts(userId);
-      setWorkouts(userWorkouts);
+      setLoading(true);
+      const result = await getWorkouts(userId);
+      if (result.success) {
+        setWorkouts(result.data || []);
+      } else {
+        console.error('Error loading workouts:', result.error);
+      }
     } catch (error) {
       console.error('Error loading workouts:', error);
     } finally {
@@ -19,11 +24,19 @@ export const useWorkouts = (userId: string) => {
   }, [userId]);
 
   // Add a new workout
-  const addWorkout = useCallback((workoutData: Omit<Workout, 'id' | 'userId' | 'timestamp'>) => {
+  const addWorkoutToFirestore = useCallback(async (workoutData: Omit<Workout, 'id' | 'userId' | 'timestamp'>) => {
     try {
-      const newWorkout = saveWorkout(userId, workoutData);
-      setWorkouts(prev => [...prev, newWorkout]);
-      return newWorkout;
+      const workout = {
+        ...workoutData,
+        userId,
+        timestamp: new Date().toISOString(),
+      };
+      const result = await addWorkout(userId, workout);
+      if (result.success) {
+        return { ...workout, id: result.id };
+      } else {
+        throw new Error('Failed to add workout');
+      }
     } catch (error) {
       console.error('Error adding workout:', error);
       throw error;
@@ -31,13 +44,10 @@ export const useWorkouts = (userId: string) => {
   }, [userId]);
 
   // Delete a workout
-  const removeWorkout = useCallback((workoutId: string) => {
+  const removeWorkout = useCallback(async (workoutId: string) => {
     try {
-      const success = deleteWorkout(userId, workoutId);
-      if (success) {
-        setWorkouts(prev => prev.filter(workout => workout.id !== workoutId));
-      }
-      return success;
+      const result = await deleteWorkout(userId, workoutId);
+      return result.success;
     } catch (error) {
       console.error('Error deleting workout:', error);
       return false;
@@ -45,10 +55,23 @@ export const useWorkouts = (userId: string) => {
   }, [userId]);
 
   // Get weekly workouts
-  const weeklyWorkouts = getWeeklyWorkouts(userId);
+  const weeklyWorkouts = useMemo(() => {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return workouts.filter(w => new Date(w.timestamp) >= weekAgo);
+  }, [workouts]);
   
   // Get today's workouts
-  const todayWorkouts = getTodayWorkouts(userId);
+  const todayWorkouts = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return workouts.filter(w => {
+      const date = new Date(w.timestamp);
+      return date >= today && date < tomorrow;
+    });
+  }, [workouts]);
 
   // Calculate statistics
   const stats = {
@@ -105,15 +128,22 @@ export const useWorkouts = (userId: string) => {
 
   const streak = calculateStreak();
 
-  // Load workouts on mount and when userId changes
+  // Set up real-time listener
   useEffect(() => {
-    loadWorkouts();
-  }, [loadWorkouts]);
+    if (!userId) return;
+    
+    const unsubscribe = subscribeToWorkouts(userId, (workouts) => {
+      setWorkouts(workouts);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [userId]);
 
   return {
     workouts,
     loading,
-    addWorkout,
+    addWorkout: addWorkoutToFirestore,
     removeWorkout,
     weeklyWorkouts,
     todayWorkouts,

@@ -1,16 +1,21 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Mood } from '@neural-trainer/shared';
-import { saveMood, getMoods, deleteMood, getWeeklyMoods, getTodayMoods } from '../lib/storage';
+import { addMood, getMoods, deleteMood, subscribeToMoods } from '../lib/firestore';
 
 export const useMoods = (userId: string) => {
   const [moods, setMoods] = useState<Mood[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load moods from localStorage
-  const loadMoods = useCallback(() => {
+  // Load moods from Firestore
+  const loadMoods = useCallback(async () => {
     try {
-      const userMoods = getMoods(userId);
-      setMoods(userMoods);
+      setLoading(true);
+      const result = await getMoods(userId);
+      if (result.success) {
+        setMoods(result.data || []);
+      } else {
+        console.error('Error loading moods:', result.error);
+      }
     } catch (error) {
       console.error('Error loading moods:', error);
     } finally {
@@ -19,11 +24,19 @@ export const useMoods = (userId: string) => {
   }, [userId]);
 
   // Add a new mood
-  const addMood = useCallback((moodData: Omit<Mood, 'id' | 'userId' | 'timestamp'>) => {
+  const addMoodToFirestore = useCallback(async (moodData: Omit<Mood, 'id' | 'userId' | 'timestamp'>) => {
     try {
-      const newMood = saveMood(userId, moodData);
-      setMoods(prev => [...prev, newMood]);
-      return newMood;
+      const mood = {
+        ...moodData,
+        userId,
+        timestamp: new Date().toISOString(),
+      };
+      const result = await addMood(userId, mood);
+      if (result.success) {
+        return { ...mood, id: result.id };
+      } else {
+        throw new Error('Failed to add mood');
+      }
     } catch (error) {
       console.error('Error adding mood:', error);
       throw error;
@@ -31,13 +44,10 @@ export const useMoods = (userId: string) => {
   }, [userId]);
 
   // Delete a mood
-  const removeMood = useCallback((moodId: string) => {
+  const removeMood = useCallback(async (moodId: string) => {
     try {
-      const success = deleteMood(userId, moodId);
-      if (success) {
-        setMoods(prev => prev.filter(mood => mood.id !== moodId));
-      }
-      return success;
+      const result = await deleteMood(userId, moodId);
+      return result.success;
     } catch (error) {
       console.error('Error deleting mood:', error);
       return false;
@@ -45,10 +55,23 @@ export const useMoods = (userId: string) => {
   }, [userId]);
 
   // Get weekly moods
-  const weeklyMoods = getWeeklyMoods(userId);
+  const weeklyMoods = useMemo(() => {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return moods.filter(m => new Date(m.timestamp) >= weekAgo);
+  }, [moods]);
   
   // Get today's moods
-  const todayMoods = getTodayMoods(userId);
+  const todayMoods = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return moods.filter(m => {
+      const date = new Date(m.timestamp);
+      return date >= today && date < tomorrow;
+    });
+  }, [moods]);
 
   // Calculate statistics
   const stats = {
@@ -112,15 +135,22 @@ export const useMoods = (userId: string) => {
 
   const trends = getMoodTrends();
 
-  // Load moods on mount and when userId changes
+  // Set up real-time listener
   useEffect(() => {
-    loadMoods();
-  }, [loadMoods]);
+    if (!userId) return;
+    
+    const unsubscribe = subscribeToMoods(userId, (moods) => {
+      setMoods(moods);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [userId]);
 
   return {
     moods,
     loading,
-    addMood,
+    addMood: addMoodToFirestore,
     removeMood,
     weeklyMoods,
     todayMoods,

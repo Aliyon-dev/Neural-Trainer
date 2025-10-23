@@ -32,8 +32,21 @@ export const motivationSchema = z.object({
   createdAt: z.string(),
 });
 
+export const userProfileSchema = z.object({
+  displayName: z.string().min(1),
+  email: z.string().email(),
+  age: z.number().int().min(13).max(120).optional(),
+  fitnessGoals: z.array(z.string()).optional(),
+  experienceLevel: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
+  photoURL: z.string().url().optional(),
+  bio: z.string().max(500).optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
 export type User = z.infer<typeof userSchema>;
 export type Workout = z.infer<typeof workoutSchema>;
 export type Mood = z.infer<typeof moodSchema>;
 export type Motivation = z.infer<typeof motivationSchema>;
+export type UserProfile = z.infer<typeof userProfileSchema>;
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
@@ -34,7 +35,7 @@ const itemVariants = {
 };
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user, userProfile, logout } = useAuth();
   const { stats: workoutStats, loading: workoutLoading } = useWorkouts(user?.uid || '');
   const { stats: moodStats, loading: moodLoading } = useMoods(user?.uid || '');
   
@@ -86,13 +87,29 @@ export default function Dashboard() {
             </div>
             <h1 className="text-2xl font-bold font-pacifico text-white">Neural Trainer</h1>
           </div>
-          <Button 
-            onClick={handleLogout}
-            variant="outline"
-            className="bg-black/40 border-red-500/30 text-white hover:bg-red-600/20 font-manrope"
-          >
-            Logout
-          </Button>
+          <div className="flex items-center space-x-4">
+            <div className="text-right">
+              <p className="text-sm text-gray-300 font-manrope">Welcome back,</p>
+              <p className="text-lg font-semibold text-white font-manrope">
+                {userProfile?.displayName || user?.email?.split('@')[0] || 'User'}
+              </p>
+            </div>
+            <Link to="/profile">
+              <Button 
+                variant="outline"
+                className="bg-black/40 border-red-500/30 text-white hover:bg-red-600/20 font-manrope"
+              >
+                Profile
+              </Button>
+            </Link>
+            <Button 
+              onClick={handleLogout}
+              variant="outline"
+              className="bg-black/40 border-red-500/30 text-white hover:bg-red-600/20 font-manrope"
+            >
+              Logout
+            </Button>
+          </div>
         </motion.header>
 
         {/* Main Content */}

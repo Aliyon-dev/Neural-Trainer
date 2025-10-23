@@ -1,6 +1,7 @@
 // apps/web/src/lib/firebase.ts
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // We use import.meta.env to access the VITE_ variables
@@ -18,6 +19,9 @@ const app = initializeApp(firebaseConfig);
 
 // Export the auth service
 export const auth = getAuth(app);
+
+// Export the Firestore service
+export const db = getFirestore(app);
 
 // Auth helper functions
 export const signInWithEmail = async (email: string, password: string) => {
