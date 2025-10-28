@@ -80,11 +80,11 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
         <Input
           id="displayName"
           {...register('displayName')}
-          className="bg-black/50 border-red-500/30 text-white placeholder-gray-400"
+          className="bg-black/50 border-cyan-500/30 text-white placeholder-gray-400"
           placeholder="Enter your display name"
         />
         {errors.displayName && (
-          <p className="text-sm text-red-400">{errors.displayName.message}</p>
+          <p className="text-sm text-cyan-400">{errors.displayName.message}</p>
         )}
       </div>
 
@@ -97,11 +97,11 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
           id="age"
           type="number"
           {...register('age', { valueAsNumber: true })}
-          className="bg-black/50 border-red-500/30 text-white placeholder-gray-400"
+          className="bg-black/50 border-cyan-500/30 text-white placeholder-gray-400"
           placeholder="Enter your age"
         />
         {errors.age && (
-          <p className="text-sm text-red-400">{errors.age.message}</p>
+          <p className="text-sm text-cyan-400">{errors.age.message}</p>
         )}
       </div>
 
@@ -114,17 +114,17 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
           value={watch('experienceLevel') || ''}
           onValueChange={(value) => setValue('experienceLevel', value as 'beginner' | 'intermediate' | 'advanced')}
         >
-          <SelectTrigger className="bg-black/50 border-red-500/30 text-white">
+          <SelectTrigger className="bg-black/50 border-cyan-500/30 text-white">
             <SelectValue placeholder="Select your experience level" />
           </SelectTrigger>
-          <SelectContent className="bg-black border-red-500/30">
-            <SelectItem value="beginner" className="text-white hover:bg-red-900/50">
+          <SelectContent className="bg-black border-cyan-500/30">
+            <SelectItem value="beginner" className="text-white hover:bg-cyan-900/50">
               Beginner
             </SelectItem>
-            <SelectItem value="intermediate" className="text-white hover:bg-red-900/50">
+            <SelectItem value="intermediate" className="text-white hover:bg-cyan-900/50">
               Intermediate
             </SelectItem>
-            <SelectItem value="advanced" className="text-white hover:bg-red-900/50">
+            <SelectItem value="advanced" className="text-white hover:bg-cyan-900/50">
               Advanced
             </SelectItem>
           </SelectContent>
@@ -144,8 +144,8 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
               onClick={() => toggleFitnessGoal(goal)}
               className={`p-2 text-sm rounded-lg border transition-colors ${
                 selectedGoals.includes(goal)
-                  ? 'bg-red-600/20 border-red-500 text-red-300'
-                  : 'bg-black/50 border-red-500/30 text-gray-300 hover:border-red-500/50'
+                  ? 'bg-cyan-600/20 border-cyan-500 text-cyan-300'
+                  : 'bg-black/50 border-cyan-500/30 text-gray-300 hover:border-cyan-500/50'
               }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -165,11 +165,11 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
           id="bio"
           {...register('bio')}
           rows={4}
-          className="w-full p-3 bg-black/50 border border-red-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none"
+          className="w-full p-3 bg-black/50 border border-cyan-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 resize-none"
           placeholder="Tell us about yourself and your fitness journey..."
         />
         {errors.bio && (
-          <p className="text-sm text-red-400">{errors.bio.message}</p>
+          <p className="text-sm text-cyan-400">{errors.bio.message}</p>
         )}
       </div>
 
@@ -181,7 +181,7 @@ export function ProfileForm({ initialData, onSubmit, isLoading = false }: Profil
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope"
+          className="w-full bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-700 hover:to-cyan-900 font-manrope"
         >
           {isLoading ? 'Saving...' : 'Save Profile'}
         </Button>

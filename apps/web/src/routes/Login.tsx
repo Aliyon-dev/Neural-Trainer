@@ -74,7 +74,7 @@ export default function Login() {
                 <motion.span whileHover={{ scale: 1.05 }}>
                   <Link 
                     to="/signup" 
-                    className="text-red-400 hover:text-red-300 font-bold underline"
+                    className="text-cyan-400 hover:text-cyan-300 font-bold underline"
                   >
                     Join Now
                   </Link>
@@ -85,7 +85,7 @@ export default function Login() {
                 variants={itemVariants}
               >
                 <motion.span 
-                  className="text-xs text-gray-500 hover:text-red-400 cursor-pointer font-medium font-manrope"
+                  className="text-xs text-gray-500 hover:text-cyan-400 cursor-pointer font-medium font-manrope"
                   whileHover={{ scale: 1.05 }}
                 >
                   Forgot Password?
@@ -105,7 +105,7 @@ export default function Login() {
                   type="email" 
                   placeholder="Enter your email" 
                   {...register('email')} 
-                  className="w-full bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500 rounded-lg backdrop-blur-sm"
+                  className="w-full"
                 />
               </motion.div>
             </motion.div>
@@ -120,7 +120,7 @@ export default function Login() {
                   type="password" 
                   placeholder="Enter your password" 
                   {...register('password')} 
-                  className="w-full bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500 rounded-lg backdrop-blur-sm"
+                  className="w-full"
                 />
               </motion.div>
             </motion.div>
@@ -133,7 +133,7 @@ export default function Login() {
               <Button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full py-3 text-lg font-bold bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 border-0 rounded-lg backdrop-blur-sm font-manrope disabled:opacity-50"
+                className="w-full py-3 text-lg font-bold font-manrope disabled:opacity-50"
               >
                 {isLoading ? 'Signing In...' : 'Sign In'}
               </Button>

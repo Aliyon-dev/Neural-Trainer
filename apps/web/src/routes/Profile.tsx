@@ -43,7 +43,7 @@ export default function Profile() {
       try {
         const result = await getUserProfile(user.uid);
         if (result.success) {
-          setUserProfile(result.data);
+          setUserProfile(result.data || null);
         } else {
           // Create initial profile if none exists
           const initialProfile = {
@@ -90,7 +90,7 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <motion.div
-          className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full"
+          className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full"
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         />
@@ -107,30 +107,30 @@ export default function Profile() {
     >
       {/* Header */}
       <motion.div 
-        className="flex items-center justify-between p-6 border-b border-red-500/20"
+        className="flex items-center justify-between p-6 border-b border-cyan-500/20"
         variants={itemVariants}
       >
         <div className="flex items-center space-x-4">
           <Link to="/dashboard">
-            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-red-900/50">
+            <Button variant="ghost" className="text-gray-300 hover:text-cyan-200 hover:bg-gradient-to-r hover:from-cyan-900/20 hover:to-blue-900/20">
               ← Back to Dashboard
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold font-manrope">Profile Settings</h1>
+          <h1 className="text-3xl font-bold font-manrope text-white">Profile Settings</h1>
         </div>
       </motion.div>
 
       <div className="max-w-2xl mx-auto p-6">
         <motion.div variants={itemVariants}>
-          <Card className="bg-black/50 backdrop-blur-md border border-red-500/30 shadow-2xl">
+          <Card className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-sm border border-cyan-500/30 shadow-xl shadow-cyan-500/10">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-red-400 text-center font-manrope">
+              <CardTitle className="text-2xl font-bold text-cyan-300 text-center font-manrope">
                 Your Profile
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ProfileForm
-                initialData={userProfile}
+                initialData={userProfile || undefined}
                 onSubmit={handleSaveProfile}
                 isLoading={isSaving}
               />
@@ -141,9 +141,9 @@ export default function Profile() {
         {/* Current Profile Info */}
         {userProfile && (
           <motion.div variants={itemVariants} className="mt-8">
-            <Card className="bg-black/30 backdrop-blur-md border border-red-500/20">
+            <Card className="bg-gradient-to-br from-gray-800/90 to-gray-700/90 backdrop-blur-sm border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
               <CardHeader>
-                <CardTitle className="text-lg font-bold text-gray-300 font-manrope">
+                <CardTitle className="text-lg font-bold text-cyan-300 font-manrope">
                   Current Profile
                 </CardTitle>
               </CardHeader>

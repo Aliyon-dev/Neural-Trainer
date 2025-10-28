@@ -16,7 +16,7 @@ export function Header() {
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
         <motion.div 
-          className="w-10 h-10 bg-gradient-to-r from-red-600 to-red-800 rounded-lg flex items-center justify-center shadow-lg shadow-red-500/30 backdrop-blur-sm"
+          className="w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/30 backdrop-blur-sm"
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.5 }}
         >
@@ -28,12 +28,12 @@ export function Header() {
       </motion.div>
       <nav className="flex gap-3">
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-red-900/50 backdrop-blur-sm">
+          <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-cyan-900/50 backdrop-blur-sm">
             <Link to="/login">LOGIN</Link>
           </Button>
         </motion.div>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-800 border-0 backdrop-blur-sm">
+          <Button className="relative overflow-hidden bg-gradient-to-r from-cyan-600 to-blue-600 border-0 backdrop-blur-sm">
             <Link to="/signup">
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full"

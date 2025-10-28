@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth, signInWithEmail, signUpWithEmail, signOutUser } from '../lib/firebase';
-import { createUserProfile, getUserProfile, migrateLocalStorageData } from '../lib/firestore';
+import { createUserProfile, getUserProfile, updateUserProfile, migrateLocalStorageData } from '../lib/firestore';
 import { UserProfile } from '@neural-trainer/shared';
 import { toast } from 'sonner';
 
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
           const result = await getUserProfile(user.uid);
           if (result.success) {
-            setUserProfile(result.data);
+            setUserProfile(result.data || null);
           } else {
             // Create initial profile if none exists
             const initialProfile = {

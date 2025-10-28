@@ -13,7 +13,7 @@ const statCards = [
     icon: '💪',
     getValue: (workouts: any, moods: any) => workouts?.stats?.weekly || 0,
     getSubtext: (workouts: any) => `${workouts?.stats?.weeklyCalories || 0} calories burned`,
-    color: 'text-red-400',
+    color: 'text-cyan-400',
   },
   {
     id: 'streak',
@@ -93,18 +93,18 @@ export function InsightsPanel() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-black/40 border-red-500/30 rounded-lg p-6 backdrop-blur-sm"
+        className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 rounded-lg p-6 backdrop-blur-sm shadow-lg shadow-cyan-500/10"
       >
         <div className="text-center mb-4">
           <h3 className="text-xl font-bold text-white font-manrope mb-2">
             Your Progress
           </h3>
-          <div className="text-3xl font-bold text-red-400 font-manrope">
+          <div className="text-3xl font-bold text-cyan-400 font-manrope">
             {progressPercentage}%
           </div>
           <div className="w-full bg-gray-700 rounded-full h-2 mt-2">
             <motion.div
-              className="bg-gradient-to-r from-red-600 to-red-800 h-2 rounded-full"
+              className="bg-gradient-to-r from-cyan-600 to-blue-600 h-2 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${progressPercentage}%` }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -128,7 +128,7 @@ export function InsightsPanel() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
-            <Card className="bg-black/40 border-red-500/30 backdrop-blur-sm">
+            <Card className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 backdrop-blur-sm shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold text-white font-manrope flex items-center">
                   <span className="text-lg mr-2">{card.icon}</span>
@@ -153,7 +153,7 @@ export function InsightsPanel() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-black/40 border-red-500/30 rounded-lg p-4 backdrop-blur-sm"
+        className="bg-gradient-to-br from-gray-800/90 to-gray-700/90 border border-cyan-500/30 rounded-lg p-4 backdrop-blur-sm shadow-lg shadow-cyan-500/5"
       >
         <h4 className="text-lg font-bold text-white font-manrope mb-3">
           Quick Insights
@@ -163,7 +163,7 @@ export function InsightsPanel() {
           {mostFrequentType && mostFrequentType !== 'none' && (
             <div className="flex items-center justify-between">
               <span className="text-gray-300 font-manrope">Favorite Exercise:</span>
-              <Badge variant="secondary" className="bg-red-600/20 text-red-300">
+              <Badge variant="secondary" className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 text-cyan-300 border border-cyan-500/30">
                 {mostFrequentType.charAt(0).toUpperCase() + mostFrequentType.slice(1)}
               </Badge>
             </div>
@@ -172,7 +172,7 @@ export function InsightsPanel() {
           {(moodStats?.weekly || 0) > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-gray-300 font-manrope">Most Common Mood:</span>
-              <Badge variant="secondary" className="bg-red-600/20 text-red-300">
+              <Badge variant="secondary" className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 text-cyan-300 border border-cyan-500/30">
                 {mostFrequentMood}
               </Badge>
             </div>

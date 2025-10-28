@@ -68,7 +68,7 @@ export function WorkoutList() {
     return (
       <div className="space-y-3">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-black/40 border-red-500/30 rounded-lg p-4 animate-pulse">
+          <div key={i} className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 rounded-lg p-4 animate-pulse">
             <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
             <div className="h-3 bg-gray-700 rounded w-1/2"></div>
           </div>
@@ -101,7 +101,7 @@ export function WorkoutList() {
         <h3 className="text-lg font-bold text-white font-manrope">
           Recent Workouts
         </h3>
-        <Badge variant="secondary" className="bg-red-600/20 text-red-300">
+        <Badge variant="secondary" className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 text-cyan-300 border border-cyan-500/30">
           {workouts.length} total
         </Badge>
       </div>
@@ -114,7 +114,7 @@ export function WorkoutList() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            className="bg-black/40 border-red-500/30 rounded-lg p-4 backdrop-blur-sm"
+            className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 rounded-lg p-4 backdrop-blur-sm shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -138,7 +138,7 @@ export function WorkoutList() {
               <Button
                 variant="outline"
                 onClick={() => handleDeleteWorkout(workout.id)}
-                className="px-3 py-1 text-sm bg-red-600/20 border-red-500/30 text-red-300 hover:bg-red-600/30 font-manrope"
+                className="px-3 py-1 text-sm font-manrope"
               >
                 Delete
               </Button>

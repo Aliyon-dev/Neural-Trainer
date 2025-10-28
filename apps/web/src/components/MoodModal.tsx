@@ -96,7 +96,7 @@ export function MoodModal({ open, onOpenChange }: MoodModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="bg-black/90 border-red-500/30 text-white">
+      <DialogContent className="bg-gray-950 border-cyan-500/30 text-white">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-manrope text-white">
             How are you feeling?
@@ -120,8 +120,8 @@ export function MoodModal({ open, onOpenChange }: MoodModalProps) {
                   onClick={() => setSelectedEmoji(mood.emoji)}
                   className={`p-3 rounded-lg border-2 transition-all ${
                     selectedEmoji === mood.emoji
-                      ? 'border-red-500 bg-red-600/20'
-                      : 'border-gray-600 bg-black/40 hover:border-red-500/50'
+                      ? 'border-cyan-500 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 shadow-lg shadow-cyan-500/25'
+                      : 'border-gray-600 bg-gradient-to-r from-gray-800/40 to-gray-700/40 hover:border-cyan-500/50 hover:bg-gradient-to-r hover:from-cyan-900/20 hover:to-blue-900/20'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -164,7 +164,7 @@ export function MoodModal({ open, onOpenChange }: MoodModalProps) {
             <Input
               placeholder="How are you feeling? Any thoughts to share?"
               {...register('notes')}
-              className="bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500"
+              className="w-full"
             />
           </div>
 
@@ -174,14 +174,14 @@ export function MoodModal({ open, onOpenChange }: MoodModalProps) {
               type="button"
               variant="outline"
               onClick={handleClose}
-              className="flex-1 bg-black/40 border-red-500/30 text-white hover:bg-red-600/20 font-manrope"
+              className="flex-1 font-manrope"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope disabled:opacity-50"
+              className="flex-1 font-manrope disabled:opacity-50"
             >
               {isSubmitting ? 'Logging...' : 'Log Mood'}
             </Button>
