@@ -58,16 +58,16 @@ export function FeaturesGrid() {
           whileHover={{ y: -8, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          <Card className="hover:shadow-2xl transition-all duration-300 border border-red-500/30 bg-black/40 backdrop-blur-md">
+          <Card className="hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 border border-cyan-500/30 bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-sm">
             <CardHeader>
               <motion.div 
-                className={`w-14 h-14 bg-red-900/50 rounded-2xl flex items-center justify-center mb-4 border border-red-500/30 backdrop-blur-sm`}
+                className={`w-14 h-14 bg-gradient-to-r from-cyan-900/50 to-blue-900/50 rounded-2xl flex items-center justify-center mb-4 border border-cyan-500/30 backdrop-blur-sm shadow-lg shadow-cyan-500/10`}
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.5 }}
               >
                 <span className="text-2xl">{feature.icon}</span>
               </motion.div>
-              <CardTitle className="text-xl text-red-400 font-manrope font-bold">{feature.title}</CardTitle>
+              <CardTitle className="text-xl text-cyan-300 font-manrope font-bold">{feature.title}</CardTitle>
               <CardDescription className="text-base text-gray-300 font-manrope">
                 {feature.description}
               </CardDescription>

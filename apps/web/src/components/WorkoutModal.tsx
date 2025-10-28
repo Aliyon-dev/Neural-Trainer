@@ -84,7 +84,7 @@ export function WorkoutModal({ open, onOpenChange }: WorkoutModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="bg-black/90 border-red-500/30 text-white">
+      <DialogContent className="bg-gray-950 border-cyan-500/30 text-white">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-manrope text-white">
             Log New Workout
@@ -104,15 +104,15 @@ export function WorkoutModal({ open, onOpenChange }: WorkoutModalProps) {
               value={selectedType}
               onValueChange={(value) => setValue('type', value as WorkoutFormData['type'])}
             >
-              <SelectTrigger className="bg-black/40 border-red-500/30 text-white focus:border-red-500">
+              <SelectTrigger className="w-full">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-black/90 border-red-500/30">
+              <SelectContent className="bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm border border-cyan-500/30 shadow-xl shadow-cyan-500/10">
                 {workoutTypes.map((type) => (
                   <SelectItem
                     key={type.value}
                     value={type.value}
-                    className="text-white hover:bg-red-600/20 focus:bg-red-600/20"
+                    className="text-white hover:bg-gradient-to-r hover:from-cyan-900/20 hover:to-blue-900/20 focus:bg-gradient-to-r focus:from-cyan-900/20 focus:to-blue-900/20"
                   >
                     <span className="flex items-center space-x-2">
                       <span>{type.icon}</span>
@@ -139,10 +139,10 @@ export function WorkoutModal({ open, onOpenChange }: WorkoutModalProps) {
                 min: { value: 1, message: 'Duration must be at least 1 minute' },
                 max: { value: 300, message: 'Duration cannot exceed 300 minutes' }
               })}
-              className="bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500"
+              className="w-full"
             />
             {errors.duration && (
-              <p className="text-sm text-red-400 font-manrope">{errors.duration.message}</p>
+              <p className="text-sm text-cyan-400 font-manrope">{errors.duration.message}</p>
             )}
           </div>
 
@@ -158,10 +158,10 @@ export function WorkoutModal({ open, onOpenChange }: WorkoutModalProps) {
               {...register('calories', { 
                 min: { value: 0, message: 'Calories cannot be negative' }
               })}
-              className="bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500"
+              className="w-full"
             />
             {errors.calories && (
-              <p className="text-sm text-red-400 font-manrope">{errors.calories.message}</p>
+              <p className="text-sm text-cyan-400 font-manrope">{errors.calories.message}</p>
             )}
           </div>
 
@@ -171,14 +171,14 @@ export function WorkoutModal({ open, onOpenChange }: WorkoutModalProps) {
               type="button"
               variant="outline"
               onClick={handleClose}
-              className="flex-1 bg-black/40 border-red-500/30 text-white hover:bg-red-600/20 font-manrope"
+              className="flex-1"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 font-manrope disabled:opacity-50"
+              className="flex-1 font-manrope disabled:opacity-50"
             >
               {isSubmitting ? 'Logging...' : 'Log Workout'}
             </Button>

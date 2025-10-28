@@ -21,7 +21,7 @@ export function MotivationSection() {
       animate="visible"
     >
       <motion.h3 
-        className="text-3xl font-black mb-4 bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent uppercase"
+        className="text-3xl font-black mb-4 bg-gradient-to-r from-cyan-500 to-cyan-300 bg-clip-text text-transparent uppercase"
         animate={{
           backgroundPosition: ['0%', '100%'],
         }}

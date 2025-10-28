@@ -38,7 +38,7 @@ export function MoodHistory() {
   };
 
   const getIntensityColor = (intensity: number) => {
-    if (intensity <= 2) return 'text-red-400';
+    if (intensity <= 2) return 'text-cyan-400';
     if (intensity <= 3) return 'text-yellow-400';
     return 'text-green-400';
   };
@@ -48,7 +48,7 @@ export function MoodHistory() {
       <div
         key={i}
         className={`w-1 h-3 rounded ${
-          i < intensity ? 'bg-red-500' : 'bg-gray-600'
+          i < intensity ? 'bg-cyan-500' : 'bg-gray-600'
         }`}
       />
     ));
@@ -58,7 +58,7 @@ export function MoodHistory() {
     return (
       <div className="space-y-3">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-black/40 border-red-500/30 rounded-lg p-4 animate-pulse">
+          <div key={i} className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 rounded-lg p-4 animate-pulse">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gray-700 rounded"></div>
               <div className="flex-1">
@@ -96,7 +96,7 @@ export function MoodHistory() {
         <h3 className="text-lg font-bold text-white font-manrope">
           Recent Moods
         </h3>
-        <Badge variant="secondary" className="bg-red-600/20 text-red-300">
+        <Badge variant="secondary" className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 text-cyan-300 border border-cyan-500/30">
           {moods.length} entries
         </Badge>
       </div>
@@ -109,7 +109,7 @@ export function MoodHistory() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            className="bg-black/40 border-red-500/30 rounded-lg p-4 backdrop-blur-sm"
+            className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/30 rounded-lg p-4 backdrop-blur-sm shadow-lg shadow-cyan-500/5 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -140,7 +140,7 @@ export function MoodHistory() {
               <Button
                 variant="outline"
                 onClick={() => handleDeleteMood(mood.id)}
-                className="px-3 py-1 text-sm bg-red-600/20 border-red-500/30 text-red-300 hover:bg-red-600/30 font-manrope"
+                className="px-3 py-1 text-sm font-manrope"
               >
                 Delete
               </Button>

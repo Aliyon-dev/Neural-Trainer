@@ -20,16 +20,16 @@ export default function App() {
           alt="Fitness background"
           className="w-full h-full object-cover"
         />
-        {/* Dark red overlay for better contrast */}
+        {/* Dark overlay for better contrast */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/80 to-black/70" />
         {/* Subtle grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,0,0.1)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
       </div>
 
       {/* Animated floating elements */}
       <div className="fixed inset-0 z-1 overflow-hidden">
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-red-600/10 rounded-full mix-blend-screen filter blur-xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-cyan-600/10 rounded-full mix-blend-screen filter blur-xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -42,7 +42,7 @@ export default function App() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-red-800/5 rounded-full mix-blend-screen filter blur-xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-blue-800/5 rounded-full mix-blend-screen filter blur-xl"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.2, 0.4, 0.2],

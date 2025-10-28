@@ -42,7 +42,7 @@ export default function Signup() {
   
   const getPasswordStrength = (password: string) => {
     if (password.length === 0) return { strength: 0, label: '', color: '' };
-    if (password.length < 6) return { strength: 1, label: 'Weak', color: 'bg-red-500' };
+    if (password.length < 6) return { strength: 1, label: 'Weak', color: 'bg-cyan-500' };
     if (password.length < 8) return { strength: 2, label: 'Fair', color: 'bg-yellow-500' };
     if (password.length < 10) return { strength: 3, label: 'Good', color: 'bg-blue-500' };
     return { strength: 4, label: 'Strong', color: 'bg-green-500' };
@@ -88,7 +88,7 @@ export default function Signup() {
               <motion.span whileHover={{ scale: 1.05 }}>
                 <Link 
                   to="/login" 
-                  className="text-red-400 hover:text-red-300 font-bold underline"
+                  className="text-cyan-400 hover:text-cyan-300 font-bold underline"
                 >
                   Sign In
                 </Link>
@@ -107,7 +107,7 @@ export default function Signup() {
                   type="email" 
                   placeholder="Enter your email" 
                   {...register('email')} 
-                  className="w-full bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500 rounded-lg backdrop-blur-sm"
+                  className="w-full"
                 />
               </motion.div>
             </motion.div>
@@ -122,7 +122,7 @@ export default function Signup() {
                   type="password" 
                   placeholder="Create a strong password" 
                   {...register('password')} 
-                  className="w-full bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500 rounded-lg backdrop-blur-sm"
+                  className="w-full"
                 />
               </motion.div>
             </motion.div>
@@ -137,23 +137,23 @@ export default function Signup() {
                   type="password" 
                   placeholder="Confirm your password" 
                   {...register('confirmPassword')} 
-                  className="w-full bg-black/40 border-red-500/30 text-white placeholder-gray-500 focus:border-red-500 rounded-lg backdrop-blur-sm"
+                  className="w-full"
                 />
               </motion.div>
             </motion.div>
 
             {/* Strength Indicator */}
             <motion.div
-              className="bg-black/40 rounded-lg p-4 border border-red-500/20"
+              className="bg-gradient-to-r from-gray-800/80 to-gray-700/80 rounded-xl p-4 border border-cyan-500/20 backdrop-blur-sm shadow-lg shadow-cyan-500/5"
               variants={itemVariants}
             >
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">PASSWORD STRENGTH</span>
-                <span className="text-xs font-black text-red-400">MEDIUM</span>
+                <span className="text-xs font-black text-cyan-400">MEDIUM</span>
               </div>
               <div className="w-full bg-gray-700 rounded-full h-2">
                 <motion.div 
-                  className="bg-gradient-to-r from-red-500 to-red-600 h-2 rounded-full"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 h-2 rounded-full"
                   initial={{ width: "0%" }}
                   animate={{ width: "60%" }}
                   transition={{ duration: 1, delay: 0.5 }}
@@ -169,7 +169,7 @@ export default function Signup() {
               <Button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full py-3 text-lg font-bold bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 border-0 rounded-lg backdrop-blur-sm font-manrope disabled:opacity-50"
+                className="w-full py-3 text-lg font-bold font-manrope disabled:opacity-50"
               >
                 {isLoading ? 'Creating Account...' : 'Start Training'}
               </Button>

@@ -44,9 +44,61 @@ export const userProfileSchema = z.object({
   updatedAt: z.string(),
 });
 
+// Exercise definition
+export const exerciseSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1),
+  muscleGroup: z.enum(['chest', 'back', 'shoulders', 'arms', 'legs', 'core', 'cardio', 'other']),
+  equipment: z.enum(['barbell', 'dumbbell', 'machine', 'bodyweight', 'cable', 'other']),
+  isCustom: z.boolean().default(false),
+  userId: z.string().optional(), // Only for custom exercises
+});
+
+// Routine (saved workout template)
+export const routineSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  name: z.string().min(1),
+  exercises: z.array(z.object({
+    exerciseId: z.string(),
+    plannedSets: z.number().int().positive(),
+    plannedReps: z.number().int().positive(),
+    order: z.number().int(),
+  })),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+// Set log (individual set within a workout)
+export const setLogSchema = z.object({
+  id: z.string(),
+  exerciseId: z.string(),
+  weight: z.number().nonnegative(),
+  reps: z.number().int().positive(),
+  order: z.number().int(),
+  completedAt: z.string(),
+});
+
+// Workout log (completed workout session)
+export const workoutLogSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  routineId: z.string().optional(),
+  routineName: z.string().optional(),
+  sets: z.array(setLogSchema),
+  duration: z.number().int().positive(), // in seconds
+  startedAt: z.string(),
+  completedAt: z.string(),
+  notes: z.string().optional(),
+});
+
 export type User = z.infer<typeof userSchema>;
 export type Workout = z.infer<typeof workoutSchema>;
 export type Mood = z.infer<typeof moodSchema>;
 export type Motivation = z.infer<typeof motivationSchema>;
 export type UserProfile = z.infer<typeof userProfileSchema>;
+export type Exercise = z.infer<typeof exerciseSchema>;
+export type Routine = z.infer<typeof routineSchema>;
+export type SetLog = z.infer<typeof setLogSchema>;
+export type WorkoutLog = z.infer<typeof workoutLogSchema>;
 
